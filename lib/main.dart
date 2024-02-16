@@ -2,9 +2,7 @@ import 'package:absensi_mobile/Onboarding.dart';
 import 'package:flutter/material.dart';
 import 'Splash.dart';
 import 'Home.dart';
-import 'tes.dart';
 import 'Login.dart';
-import 'tes.dart';
 import 'Onboarding.dart';
 import 'DetailPrecense.dart';
 
@@ -20,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(),
+      home: DetailPresence(),
     );
   }
 }
