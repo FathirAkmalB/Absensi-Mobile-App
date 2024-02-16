@@ -1,7 +1,7 @@
-import 'package:absensi_mobile/components/TapIn.dart';
+import 'package:absensi_mobile/components/main_page.dart';
 import 'package:flutter/material.dart';
-import 'components/TapIn.dart';
-import 'components/StarInfo.dart';
+import 'components/main_page.dart';
+import 'components/star_info.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,51 +16,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle the action when the center button is pressed
-        },
-        child: Icon(Icons.add),
-        backgroundColor: Colors.yellow,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        notchMargin: 8.0,
-        child: Container(
-          height: 56.0,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () {
-                },
-                color: _selectedIndex == 0 ? Colors.blue : null,
-              ),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                },
-                color: _selectedIndex == 1 ? Colors.blue : null,
-              ),
-              SizedBox(width: 40.0), // Empty space for the center button
-              IconButton(
-                icon: Icon(Icons.notifications),
-                onPressed: () {
-                },
-                color: _selectedIndex == 2 ? Colors.blue : null,
-              ),
-              IconButton(
-                icon: Icon(Icons.person),
-                onPressed: () {
-                },
-                color: _selectedIndex == 3 ? Colors.blue : null,
-              ),
-            ],
-          ),
-        ),
-      ),
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
         title: Row(
