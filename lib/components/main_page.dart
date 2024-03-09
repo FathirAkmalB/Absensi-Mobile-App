@@ -16,7 +16,7 @@ class _TapInState extends State<TapIn> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Tap In Terbaru', style: TextStyle(fontSize: 16)),
-          SizedBox(height:20),
+          SizedBox(height: 20),
           Container(
             width: double.infinity,
             height: 100,
@@ -34,7 +34,6 @@ class _TapInState extends State<TapIn> {
                         'Senin 12 januari 2024',
                         style: TextStyle(fontSize: 10, color: Colors.blue),
                       ),
-
                       Row(children: [
                         Text(
                           'Berhasil Melakukan ',

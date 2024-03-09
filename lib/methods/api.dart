@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 String stagingUrl = '';
-String ngrok = 'https://880b-2001-448a-2020-a7f6-2dc4-70c7-e80b-3267.ngrok-free.app';
+String ngrok = 'https://4f4f-2001-448a-2020-3995-98c0-5324-f792-7737.ngrok-free.app';
 
 class ApiURL{
   static String apiUrl = ngrok;

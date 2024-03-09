@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 // Warna Uninus Pallete
-Color hintText = const Color(0xFF9B959F);
-Color BtnGreen = const Color.fromRGBO(0, 156, 100, 1);
 Color outlineInput = const Color(0xFFA0AEC0);
-Color subTitle = const Color(0xFF718096);
-Color greenSolid = const Color(0xFF009C64);
-Color redSolid = const Color(0xFFE53E3E);
+Color hintText = const Color(0xFF565656);
 Color placeHolder = const Color(0xFF7A7A7A);
-Color searchBar = const Color(0xFFEDF2F7);
+
+Color blueColor = const Color(0xFF1A6CB6);
+Color blueSky = const Color(0xFF65A4DD);
+Color yellowSolid = const Color(0xFFFFE500);
 Color blackText = const Color(0xFF323F4B);
+Color graySolid = const Color(0xFFEDF2F7);
+
+Color subTitle = const Color(0xFF718096);
 Color examResult = const Color(0xFF9B9B9F);
 Color darkBlue = const Color(0xFF1A202C);
-Color yellowText = const Color(0xFFECC94B);
-Color goldText = const Color(0xFFD69E2E);
 Color progressBar = const Color(0xFFE2E8F0);
-Color inputLogin = const Color(0xFFEDF2F7);
-Color blueText = const Color(0xFF3AC0EA);
+
 FontWeight textRegular = FontWeight.w400;
 FontWeight textBold = FontWeight.w700;
 FontWeight textBlack = FontWeight.w900;

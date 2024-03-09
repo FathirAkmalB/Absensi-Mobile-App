@@ -1,5 +1,7 @@
+import 'package:absensi_mobile/data/data.dart';
 import 'package:absensi_mobile/login_form.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatefulWidget {
@@ -129,7 +131,12 @@ class _OnboardingState extends State<Onboarding> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                ElevatedButton(
+                TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14.0),
+                    ),
+                  ),
                   onPressed: () {
                     if (_currentPage > 0) {
                       _controller.previousPage(
@@ -138,7 +145,11 @@ class _OnboardingState extends State<Onboarding> {
                       );
                     }
                   },
-                  child: const Text('Back'),
+                  child: Text(
+                    'Kembali',
+                    style: GoogleFonts.mulish(
+                        color: blackText, fontWeight: textBold, fontSize: 12),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -155,7 +166,19 @@ class _OnboardingState extends State<Onboarding> {
                           ));
                     }
                   },
-                  child: const Text('Next'),
+                  style: ElevatedButton.styleFrom(
+                    primary: blueColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                  ),
+                  child: Text('Berikutnya',
+                  style: GoogleFonts.mulish(
+                    fontSize: 12,
+                    fontWeight: textBold,
+
+                  ),
+                  ),
                 ),
               ],
             ),

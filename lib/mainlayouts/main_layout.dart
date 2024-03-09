@@ -5,7 +5,6 @@ import 'package:absensi_mobile/components/main_page.dart';
 import 'package:absensi_mobile/data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 
 class MainLayout extends StatefulWidget {
@@ -40,7 +39,7 @@ class _MainLayoutState extends State<MainLayout> with WidgetsBindingObserver {
   ];
 
   final List<Widget> _screens = [
-    const Home(),
+    const HomePage(),
     const StarInfo(),
     const TapIn(),
     const TapIn(),
@@ -62,7 +61,7 @@ class _MainLayoutState extends State<MainLayout> with WidgetsBindingObserver {
           _onItemSelected(2);
         },
         child: Icon(Icons.add),
-        backgroundColor: _selectedIndex == 2 ? Colors.blue : yellowText, // Change the color as needed
+        backgroundColor: _selectedIndex == 2 ? Colors.blue : yellowSolid, // Change the color as needed
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),

@@ -1,3 +1,4 @@
+import 'package:absensi_mobile/login_form.dart';
 import 'package:absensi_mobile/onboarding_page.dart';
 import 'package:absensi_mobile/mainlayouts/main_layout.dart';
 import 'package:absensi_mobile/splash_screens.dart';
@@ -14,6 +15,7 @@ void main() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final Token = prefs.getString('token');
 
+    print('Token: $Token');  
     runApp(const MyApp());}
 
 class MyApp extends StatelessWidget {
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
               if (token != null) { // Validate is user has logged in
                 return const MainLayout(initialIndex: 0,);
               } else {
-                return const Onboarding();
+                return const SplashScreen();
               }
           }else{
             return const Text('Some Error');
