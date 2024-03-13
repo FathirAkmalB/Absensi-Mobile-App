@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'components/star_info.dart';
 import 'package:http/http.dart' as http;
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -17,6 +16,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUser();
+  }
+
+  Future<void> _getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username')!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
@@ -39,36 +53,35 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Selamat Pagi,',
-                    style: GoogleFonts.poppins(
-                        fontSize: font12, color: hintText),
+                    'Halo,',
+                    style:
+                        GoogleFonts.poppins(fontSize: font12, color: hintText),
                   ),
                   Text(
-                    'Yolanda Cheszka',
+                    username,
                     style: GoogleFonts.poppins(
-                      fontSize: font14,
-                      color: blueColor,
-                      fontWeight: textMedium
-                    ),
+                        fontSize: font14,
+                        color: blueColor,
+                        fontWeight: textMedium),
                   ),
                 ],
               ),
               Container(
-                width: 50,
-                height: 50,
+                width: widthScreen * 0.14,
+                height: widthScreen * 0.14,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.blue, // Adjust the border color as needed
-                    width: 2.0, // Adjust the border width as needed
+                    color: blueColor, 
+                    width: 4,
                   ),
                 ),
                 child: ClipOval(
                   child: Image.network(
                     'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
                     fit: BoxFit.cover,
-                    height: 50,
-                    width: 50,
+                    height: widthScreen * 0.14,
+                    width: widthScreen * 0.14,
                   ),
                 ),
               )
@@ -76,42 +89,58 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Container(
-          decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage('images/home1.png'),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(10)),
-          width: widthScreen,
-          height: widthScreen * 0.3,
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: widthScreen * 0.06),
-          child: const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Senin, 12 Januari 2024',
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                'kamu Belum TAP IN Hari Ini',
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(height: 5),
-              Text(
-                'Time In: -',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('images/home1.png'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10)),
+            width: widthScreen,
+            height: widthScreen * 0.3,
+            margin: EdgeInsets.symmetric(
+                vertical: 20, horizontal: widthScreen * 0.06),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Senin, 12 Januari 2024',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: whiteText
+                  ),
+                ),
+                Text(
+                  'kamu Belum TAP IN Hari Ini',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: whiteText
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  'Time In: -',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: whiteText
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        TapIn(),
-        StarInfo(),
-        ElevatedButton(onPressed: (){
-          _logout();
-        }, child:Text('Logout'))
-      ]),
+          TapIn(),
+          StarInfo(),
+          ElevatedButton(
+              onPressed: () {
+                _logout();
+              },
+              child: Text('Logout'))
+        ]),
+      ),
     );
   }
 

@@ -35,25 +35,23 @@ class _LoginState extends State<Login> {
       if (response.statusCode == 200) {
         print('success');
         final userData = jsonData;
-        print(userData);
+
         String token = userData['token'];
         String username = userData['username'];
         String createdUser = userData['created_user'];
-        final identity = userData['identity'];
+        // final identity = userData['identity'];
         String type = userData['type'];
 
         SharedPreferences preferences = await SharedPreferences.getInstance();
         await preferences.setString('token', token);
         await preferences.setString('username', username);
+        await preferences.setString('type', type);
+        // await preferences.setString('identity', identity);
         await preferences.setString('created_user', createdUser);
         await preferences.setString('created_user', createdUser);
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => type == 'siswa'
-                ? const MainLayout(
-                    initialIndex: 0,
-                  )
-                : const HomePage()));
+            builder: (context) =>const MainLayout(initialIndex: 0)));
 
         return jsonData;
       } else {
@@ -132,6 +130,7 @@ class _LoginState extends State<Login> {
                                       fontWeight: FontWeight.w400,
                                     ),
                                     keyboardType: TextInputType.emailAddress,
+                                    controller: username,
                                     decoration: InputDecoration(
                                       hintText: 'Enter your username',
                                       hintStyle: GoogleFonts.mulish(
@@ -168,7 +167,7 @@ class _LoginState extends State<Login> {
                                     obscureText: _isSecurePassword,
                                     style: GoogleFonts.mulish(
                                         color: blackText,
-                                        fontSize: 12,
+                                        fontSize: 14,
                                         fontWeight: textMedium),
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
@@ -249,7 +248,7 @@ class _LoginState extends State<Login> {
                             'Belum punya akun?',
                             style: GoogleFonts.mulish(
                               fontSize: 12,
-                              color: outlineInput,
+                              color: Colors.transparent,
                             ),
                           ),
                           TextButton(
@@ -257,7 +256,7 @@ class _LoginState extends State<Login> {
                             child: Text('Daftar',
                                 style: GoogleFonts.mulish(
                                   fontSize: 12,
-                                  color: blueColor,
+                                  color: Colors.transparent,
                                 )),
                           ),
                         ],

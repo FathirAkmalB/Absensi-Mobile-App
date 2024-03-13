@@ -24,6 +24,7 @@ FontWeight textMedium = FontWeight.w500;
 FontWeight textExtra = FontWeight.w800;
 Color borderInput = Color(0xFFE2E2E2);
 Color whiteText = Colors.white;
+Color whiteBg = Color.fromARGB(255, 243, 243, 243);
 
 const Gradient blueGradient = LinearGradient(
   colors: [
