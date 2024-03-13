@@ -37,8 +37,89 @@ class _StarInfoState extends State<StarInfo> {
                       fontWeight: textMedium, fontSize: 16, color: blueSky)),
             ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 10,),
           Container(
+            margin:const EdgeInsets.only(bottom: 20),
+            width: widthScreen,
+            height: widthScreen * 0.3,
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(8))),
+            child: Row(
+              children: [
+                Container(
+                  width: widthScreen * 0.3,
+                  height: widthScreen * 0.3,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      image: DecorationImage(
+                          image: AssetImage('images/berita.png'),
+                          fit: BoxFit.cover)),
+                ),
+                Container(
+                  width: widthScreen * 0.5,
+                  margin: const EdgeInsets.only(left: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Lorem ipsum dolor sit amet consectetur. Non pharetra diam amet mi.',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: textMedium,
+                          color: blackText,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                'Created at',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 8,
+                                  color: hintText,
+                                ),
+                              ),
+                              Text(
+                                ' 12 January',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 8,
+                                  color: blueSky,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Update at',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 8,
+                                  color: hintText,
+                                ),
+                              ),
+                              Text(
+                                ' 12 January',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 8,
+                                  color: blueSky,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin:const EdgeInsets.only(bottom: 20),
             width: widthScreen,
             height: widthScreen * 0.3,
             decoration: const BoxDecoration(

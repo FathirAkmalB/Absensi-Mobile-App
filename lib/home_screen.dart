@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.grey[200],
         elevation: 0,
         toolbarHeight: heightScreen * 0.1,
@@ -134,11 +135,11 @@ class _HomePageState extends State<HomePage> {
           ),
           TapIn(),
           StarInfo(),
-          ElevatedButton(
-              onPressed: () {
-                _logout();
-              },
-              child: Text('Logout'))
+          // ElevatedButton(
+          //     onPressed: () {
+          //       _logout();
+          //     },
+          //     child: Text('Logout'))
         ]),
       ),
     );
