@@ -1,8 +1,11 @@
+import 'package:absensi_mobile/News/detail_news.dart';
+import 'package:absensi_mobile/News/news_list.dart';
 import 'package:absensi_mobile/detail_presence.dart';
 import 'package:absensi_mobile/home_screen.dart';
-import 'package:absensi_mobile/components/star_info.dart';
+import 'package:absensi_mobile/teachers_history_screen.dart';
 import 'package:absensi_mobile/components/main_page.dart';
 import 'package:absensi_mobile/data/data.dart';
+import 'package:absensi_mobile/profile_user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lucide_icons/lucide_icons.dart';
@@ -34,16 +37,16 @@ class _MainLayoutState extends State<MainLayout> with WidgetsBindingObserver {
     'Beranda',
     'Starinfo',
     'Presensi',
-    'Detail Presensi',
+    'Riwayat Absensi',
     'Profile',
   ];
 
   final List<Widget> _screens = [
     const HomePage(),
-    const StarInfo(),
+    const NewsLetter(),
     const TapIn(),
-    const TapIn(),
-    const DetailPresence(),
+    const TeachersHistoryScreen(),
+    const ProfileUser(),
   ];
 
   @override
@@ -60,8 +63,8 @@ class _MainLayoutState extends State<MainLayout> with WidgetsBindingObserver {
         onPressed: () {
           _onItemSelected(2);
         },
-        child: Icon(Icons.add),
-        backgroundColor: _selectedIndex == 2 ? Colors.blue : yellowSolid, // Change the color as needed
+        backgroundColor: _selectedIndex == 2 ? Colors.blue : outlineInput, // Change the color as needed
+        child: const Icon(Icons.wallet_rounded),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),

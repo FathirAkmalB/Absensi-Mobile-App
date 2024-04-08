@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 String stagingUrl = '';
-String ngrok = 'https://6754-2001-448a-2020-711c-84a4-73ab-bfea-e105.ngrok-free.app';
+String ngrok = 'https://absensi.smktarunabhakti.net:3995';
 
 class ApiURL{
   static String apiUrl = ngrok;
 }
 
-class API {
+class API { 
   postRequest({
     required String route,
     required Map<String, dynamic> data,
