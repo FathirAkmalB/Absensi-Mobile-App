@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:absensi_mobile/data/data.dart';
-import 'package:absensi_mobile/home_screen.dart';
 import 'package:absensi_mobile/mainlayouts/main_layout.dart';
 import 'package:absensi_mobile/methods/api.dart';
 import 'package:flutter/material.dart';
@@ -21,42 +20,149 @@ class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
   bool? rememberMe = false;
 
-  Future<Map<String, dynamic>> loginUser() async {
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(
+          child: Container(
+            padding: EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const CircularProgressIndicator(
+              color: Color(0xff39BFB7),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void loginUser(BuildContext context) async {
+    showLoadingDialog(context);
+
     final data = {
       'username': username.text,
       'password': password.text,
     };
-    print('data: $data');
 
     final response = await API().postRequest(route: '/auth/login', data: data);
     final jsonData = json.decode(response.body);
 
     try {
+      if (response.statusCode == 401) {
+        Navigator.of(context).pop();
+
+        return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Login Failed!'),
+              content: Text('Check Your Email & Password'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
       if (response.statusCode == 200) {
-        print('success');
+        Navigator.of(context).pop();
         final userData = jsonData;
+        final identity = userData['identity'];
 
-        String token = userData['token'];
-        String username = userData['username'];
-        String createdUser = userData['created_user'];
-        // final identity = userData['identity'];
-        String type = userData['type'];
+        // General key(student & teacher)
+        final id = userData['id'];
+        final type = userData['type'];
+        final username = userData['username'];
+        final token = userData['token'];
 
-        SharedPreferences preferences = await SharedPreferences.getInstance();
-        await preferences.setString('token', token);
-        await preferences.setString('username', username);
-        await preferences.setString('type', type);
-        // await preferences.setString('identity', identity);
-        await preferences.setString('created_user', createdUser);
-        await preferences.setString('created_user', createdUser);
+        if (type == 'siswa') {
+          final nik = identity['nik'];
+          final nis = identity['nis'];
+          final email = identity['email'];
+          final name = identity['nama_siswa'];
+          final gender = identity['jk'];
+          final placeOfBirth = identity['tempat_lahir'];
+          final dateOfBirth = identity['tgl_lahir'];
+          final address = identity['address'] ?? '';
+
+          // Save student key
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          await preferences.setInt('nik', nik);
+          await preferences.setString('nis', nis);
+          await preferences.setString('email', email);
+          await preferences.setString('name', name);
+          await preferences.setString('gender', gender);
+          await preferences.setString('dateOfBirth', dateOfBirth);
+          await preferences.setString('placeOfBirth', placeOfBirth);
+          await preferences.setString('address', address) ?? '';
+        } else {
+          // Teacher key
+          final nip = identity['nip'];
+          final name = identity['name'];
+          final gender = identity['jk'];
+          final dateOfBirth = identity['tgl_lahir'];
+          final placeOfBirth = identity['tempat_lahir'];
+          final address = identity['address'] ?? '';
+
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          await preferences.setInt('id', id);
+          await preferences.setString('username', username);
+          await preferences.setString('type', type);
+          await preferences.setString('token', token);
+
+          //Save Teacher Key
+          await preferences.setString('nip', nip);
+          await preferences.setString('name', name);
+          await preferences.setString('gender', gender);
+          await preferences.setString('dateOfBirth', dateOfBirth);
+          await preferences.setString('placeOfBirth', placeOfBirth);
+          await preferences.setString('address', address) ?? '';
+        }
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) =>const MainLayout(initialIndex: 0)));
+            builder: (context) => const MainLayout(initialIndex: 0)));
 
         return jsonData;
+      } else if (response.statusCode == 404) {
+        Navigator.of(context).pop();
+
+        //validasi admin
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Akun tidak terdaftar'),
+              content: Text('Silahkan Registrasi dulu'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       } else {
-        print(response.body);
-        throw Exception('Failed to login');
+        Navigator.of(context).pop();
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Mohon Periksa Koneksi Anda.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       }
     } catch (e) {
       throw Exception('Error: $e');
@@ -219,12 +325,17 @@ class _LoginState extends State<Login> {
                                     borderRadius: BorderRadius.circular(10),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        loginUser();
+                                        loginUser(context);
                                       },
-                                      style: ElevatedButton.styleFrom(
-                                        primary: blueColor,
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 17),
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                blueColor),
+                                        padding: MaterialStateProperty.all<
+                                            EdgeInsetsGeometry>(
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 20, vertical: 17),
+                                        ),
                                       ),
                                       child: Container(
                                         child: const Text(
