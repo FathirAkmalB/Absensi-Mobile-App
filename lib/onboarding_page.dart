@@ -59,7 +59,7 @@ class _OnboardingState extends State<Onboarding> {
                       margin: const EdgeInsets.only(top: 30),
                       width: 300,
                       child: const Text(
-                        'Ullamcorper purus at ultricies mauris congue mauris tortor molestie tellus.',
+                        'Kamu bisa melihat dan memeriksa catatan kehadiran sekolahmu!',
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -82,7 +82,7 @@ class _OnboardingState extends State<Onboarding> {
                       margin: const EdgeInsets.only(top: 30),
                       width: 300,
                       child: const Text(
-                        'Ullamcorper purus at ultricies mauris congue mauris tortor molestie tellus.',
+                        'STARBHAK INFO memberikan informasi mengenai apa saja yang ada di sekolah.',
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -105,7 +105,7 @@ class _OnboardingState extends State<Onboarding> {
                       margin: const EdgeInsets.only(top: 30),
                       width: 300,
                       child: const Text(
-                        'Ullamcorper purus at ultricies mauris congue mauris tortor molestie tellus.',
+                        'Semua pencatatan kehadiran bisa kamu lihat di menu Riwayat.',
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -166,18 +166,22 @@ class _OnboardingState extends State<Onboarding> {
                           ));
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: blueColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(40),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(blueColor),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
                     ),
                   ),
-                  child: Text('Berikutnya',
-                  style: GoogleFonts.mulish(
-                    fontSize: 12,
-                    fontWeight: textBold,
-
-                  ),
+                  child: Text(
+                    'Berikutnya',
+                    style: GoogleFonts.mulish(
+                      fontSize: 12,
+                      color: whiteText,
+                      fontWeight: textBold,
+                    ),
                   ),
                 ),
               ],
