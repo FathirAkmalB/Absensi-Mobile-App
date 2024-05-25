@@ -1,7 +1,9 @@
 import 'package:absensi_mobile/components/main_page.dart';
 import 'package:absensi_mobile/data/data.dart';
 import 'package:absensi_mobile/login_form.dart';
+import 'package:absensi_mobile/mainlayouts/main_layout.dart';
 import 'package:absensi_mobile/methods/api.dart';
+import 'package:absensi_mobile/profile_user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +19,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String username = '';
+  String userType = '';
+  String userNip = '';
 
   @override
   void initState() {
@@ -28,6 +32,8 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       username = prefs.getString('username')!;
+      userType = prefs.getString('type')!;
+      userNip = prefs.getString('nip')!;
     });
   }
 
@@ -54,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    'Halo,',
+                    'Selamat datang,',
                     style:
                         GoogleFonts.poppins(fontSize: font12, color: hintText),
                   ),
@@ -67,23 +73,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              Container(
-                width: widthScreen * 0.14,
-                height: widthScreen * 0.14,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: blueColor, 
-                    width: 4,
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, 
+                  MaterialPageRoute(builder: (context) => const MainLayout(initialIndex: 4,),));
+                },
+                child: Container(
+                  width: widthScreen * 0.14,
+                  height: widthScreen * 0.14,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: blueColor, 
+                      width: 4,
+                    ),
                   ),
-                ),
-                child: ClipOval(
-                  child: Image.network(
-                    'https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg',
-                    fit: BoxFit.cover,
-                    height: widthScreen * 0.14,
-                    width: widthScreen * 0.14,
-                  ),
+                  child: CircleAvatar(
+                              radius: MediaQuery.of(context).size.width * 0.15,
+                              backgroundImage: AssetImage('images/defaultprofile.png')),
                 ),
               )
             ],
@@ -92,11 +99,12 @@ class _HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          userType == 'guru' ?
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             decoration: BoxDecoration(
                 image: const DecorationImage(
-                  image: AssetImage('images/home1.png'),
+                  image: AssetImage('images/home2.png'),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(10)),
@@ -109,7 +117,48 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Senin, 12 Januari 2024',
+                  'Sabtu, 16 Maret 2024',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: whiteText
+                  ),
+                ),
+                Text(
+                  'Selamat beraktifitas, $username!',
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: whiteText
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  userNip,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: whiteText
+                  ),
+                ),
+              ],
+            ),
+          )
+          : Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            decoration: BoxDecoration(
+                image: const DecorationImage(
+                  image: AssetImage('images/home2.png'),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(10)),
+            width: widthScreen,
+            height: widthScreen * 0.3,
+            margin: EdgeInsets.symmetric(
+                vertical: 20, horizontal: widthScreen * 0.06),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Sabtu, 16 Maret 2024',
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: whiteText
@@ -124,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  'Time In: -',
+                  'userNis',
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: whiteText
@@ -133,41 +182,12 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
+          
           TapIn(),
           StarInfo(),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       _logout();
-          //     },
-          //     child: Text('Logout'))
         ]),
       ),
     );
   }
 
-  Future<void> _logout() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String? token = preferences.getString('token');
-    var response = await http.post(
-      Uri.parse('${ApiURL.apiUrl}/api/auth/logout'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    if (response.statusCode == 200) {
-      // Hapus token autentikasi dari SharedPreferences
-      preferences.remove('token');
-
-      // Kembali ke halaman login
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (context) => const Login(),
-        ),
-      );
-    } else {
-      // Tampilkan pesan kesalahan jika logout gagal
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Logout gagal')),
-      );
-    }
-  }
 }
