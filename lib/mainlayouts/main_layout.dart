@@ -60,11 +60,13 @@ class _MainLayoutState extends State<MainLayout> with WidgetsBindingObserver {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
         onPressed: () {
           _onItemSelected(2);
         },
-        backgroundColor: _selectedIndex == 2 ? Colors.blue : outlineInput, // Change the color as needed
-        child: const Icon(Icons.wallet_rounded),
+        backgroundColor: _selectedIndex == 2 ? Colors.blue : whiteBg, // Change the color as needed
+        child: Icon(Icons.wallet_rounded,
+        color: _selectedIndex == 2 ? Colors.yellow : Colors.blue,),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),

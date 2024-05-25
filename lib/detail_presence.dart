@@ -26,6 +26,9 @@ class _DetailPresenceState extends State<DetailPresence> {
           'Detail Presence',
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          
+        ],
       ),
       body: Container(
         margin: EdgeInsets.only(top: 15),
@@ -37,7 +40,7 @@ class _DetailPresenceState extends State<DetailPresence> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.asset(
-                  'images/f10.png', // Replace with the actual path to your image
+                  'images/detailAbsen.png', // Replace with the actual path to your image
                   width: double.infinity,
                   fit: BoxFit.contain,
                 ),

@@ -53,7 +53,7 @@ class _StarInfoState extends State<StarInfo> {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       image: DecorationImage(
                           image: AssetImage('images/berita.png'),
-                          fit: BoxFit.cover)),
+                          fit: BoxFit.contain)),
                 ),
                 Container(
                   width: widthScreen * 0.5,
@@ -62,7 +62,7 @@ class _StarInfoState extends State<StarInfo> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Lorem ipsum dolor sit amet consectetur. Non pharetra diam amet mi.',
+                        'Ini 300 murid yang berhasil terdaftar sebagai eligible!.',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: textMedium,
@@ -132,7 +132,7 @@ class _StarInfoState extends State<StarInfo> {
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       image: DecorationImage(
-                          image: AssetImage('images/berita.png'),
+                          image: AssetImage('images/news-2.jpg'),
                           fit: BoxFit.cover)),
                 ),
                 Container(
@@ -142,7 +142,7 @@ class _StarInfoState extends State<StarInfo> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Lorem ipsum dolor sit amet consectetur. Non pharetra diam amet mi.',
+                        'SMK Taruna Bhakti festival air dalam rangka kenang-kenagan untuk kelas XII 2021-2024',
                         style: GoogleFonts.poppins(
                           fontSize: 16,
                           fontWeight: textMedium,

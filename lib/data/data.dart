@@ -8,7 +8,7 @@ Color placeHolder = const Color(0xFF7A7A7A);
 
 Color blueColor = const Color(0xFF1A6CB6);
 Color blueSky = const Color(0xFF65A4DD);
-Color yellowSolid = const Color(0xFFFFE500);
+Color yellowSolid = Color.fromARGB(255, 255, 230, 0);
 Color blackText = const Color(0xFF323F4B);
 Color graySolid = const Color(0xFFEDF2F7);
 
