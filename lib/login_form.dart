@@ -15,7 +15,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   bool? rememberMe = false;
@@ -79,10 +78,13 @@ class _LoginState extends State<Login> {
         final userData = jsonData;
         final identity = userData['identity'];
 
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+
         // General key(student & teacher)
         final id = userData['id'];
-        final type = userData['type'];
+        final type = userData['type']==null?"":userData['type'];
         final username = userData['username'];
+        print(username);
         final token = userData['token'];
 
         if (type == 'siswa') {
@@ -95,8 +97,12 @@ class _LoginState extends State<Login> {
           final dateOfBirth = identity['tgl_lahir'];
           final address = identity['address'] ?? '';
 
-          // Save student key
-          SharedPreferences preferences = await SharedPreferences.getInstance();
+          //save key
+          await preferences.setInt('id', id);
+          await preferences.setString('username', username);
+          await preferences.setString('type', type);
+          await preferences.setString('token', token);
+
           await preferences.setInt('nik', nik);
           await preferences.setString('nis', nis);
           await preferences.setString('email', email);
@@ -114,20 +120,22 @@ class _LoginState extends State<Login> {
           final placeOfBirth = identity['tempat_lahir'];
           final address = identity['address'] ?? '';
 
-          SharedPreferences preferences = await SharedPreferences.getInstance();
           await preferences.setInt('id', id);
           await preferences.setString('username', username);
           await preferences.setString('type', type);
           await preferences.setString('token', token);
 
           //Save Teacher Key
-          await preferences.setString('nip', nip);
+          var _nip = nip==null?"":nip;
+          await preferences.setString('nip', _nip);
           await preferences.setString('name', name);
           await preferences.setString('gender', gender);
           await preferences.setString('dateOfBirth', dateOfBirth);
           await preferences.setString('placeOfBirth', placeOfBirth);
           await preferences.setString('address', address) ?? '';
         }
+
+        await preferences.setString("identity", jsonEncode(identity));
 
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const MainLayout(initialIndex: 0)));

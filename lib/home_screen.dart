@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage> {
       userType = prefs.getString('type')!;
       userNip = prefs.getString('nip')!;
     });
+
+    String test = "";
   }
 
   @override
