@@ -1,5 +1,5 @@
 class IdentitySiswa {
-  int? nik;
+  String? nik;
   String? nis;
   int? idKelas;
   String? rfid;
@@ -8,16 +8,16 @@ class IdentitySiswa {
   String? jk;
   String? tempatLahir;
   String? tglLahir;
-  Null? address;
-  Null? telegramId;
-  Null? activationCode;
-  Null? expActivationCode;
+  String? address;
+  String? telegramId;
+  int? activationCode;
+  int? expActivationCode;
   int? isEnabled;
   String? createdUser;
   String? createdDatetime;
   String? updatedUser;
   String? updatedDatetime;
-  Null? idJurusan;
+  int? idJurusan;
 
   IdentitySiswa(
       {this.nik,

@@ -42,7 +42,7 @@ class API {
     String url = apiUrl + route;
 
     if(header.isEmpty){
-      return await http.post(
+      return await http.get(
         Uri.parse(url),
         headers: _header(),
       );

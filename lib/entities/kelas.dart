@@ -9,6 +9,7 @@ class Kelas {
   String? walasName;
   int? countSiswa;
   String? namaJurusan;
+  int countHadir = 0;
 
   Kelas(
       {this.id,
@@ -21,6 +22,7 @@ class Kelas {
         this.walasName,
         this.countSiswa,
         this.namaJurusan,
+        this.countHadir = 0,
       });
 
   Kelas.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class Kelas {
     data['walas_name'] = this.walasName;
     data['count_siswa'] = this.countSiswa;
     data['nama_jurusan'] = this.namaJurusan;
+    data['count_hadir'] = this.countHadir;
     return data;
   }
 }
