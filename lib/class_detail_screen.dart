@@ -138,8 +138,6 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
         "datas": adjustmentData,
       };
 
-      print(datas);
-
       Response res = await API().postRequest(
           route: "/absen/post/adjustment",
           header: {
@@ -150,8 +148,6 @@ class _ClassDetailScreenState extends State<ClassDetailScreen> {
       );
 
       Map<String, dynamic> jsonData = jsonDecode(res.body);
-
-      print(jsonData);
 
     }
   }
