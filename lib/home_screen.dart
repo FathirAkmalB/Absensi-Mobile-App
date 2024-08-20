@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:absensi_mobile/components/main_page.dart';
 import 'package:absensi_mobile/data/data.dart';
+import 'package:absensi_mobile/entities/portal.dart';
 import 'package:absensi_mobile/login_form.dart';
 import 'package:absensi_mobile/mainlayouts/main_layout.dart';
 import 'package:absensi_mobile/methods/api.dart';
 import 'package:absensi_mobile/profile_user.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'components/star_info.dart';
 import 'package:http/http.dart' as http;
@@ -22,21 +27,52 @@ class _HomePageState extends State<HomePage> {
   String userType = '';
   String userNip = '';
 
+  List<Portal> portals = [];
+
   @override
   void initState() {
     super.initState();
-    _getUser();
+
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async {
+      await _getUser();
+    });
   }
 
   Future<void> _getUser() async {
     final prefs = await SharedPreferences.getInstance();
+    portals = await getLatestNews();
+
+    var token = prefs.getString("token");
+
+    await checkToken(token);
+
     setState(() {
       username = prefs.getString('username')!;
       userType = prefs.getString('type')!;
       userNip = prefs.getString('nip')!;
     });
+  }
 
-    String test = "";
+  Future<void> checkToken(token) async {
+    http.Response res = await API().postRequest(
+      route: "/auth/check/token",
+      header: {
+        "Authorization": "Bearer $token",
+        "Content-Type": "application/json",
+      },
+      data: {}
+    );
+
+    Map<String, dynamic> jsonData = jsonDecode(res.body);
+
+    if(res.statusCode != 200){
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Login(),), (route) => false);
+    }
+
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setString("token", jsonData['data']['access_token']);
+
   }
 
   @override
@@ -91,8 +127,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   child: CircleAvatar(
-                              radius: MediaQuery.of(context).size.width * 0.15,
-                              backgroundImage: AssetImage('images/defaultprofile.png')),
+                    radius: MediaQuery.of(context).size.width * 0.15,
+                    backgroundImage: const AssetImage('images/defaultprofile.png'),
+                  ),
                 ),
               )
             ],
@@ -119,7 +156,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Sabtu, 16 Maret 2024',
+                  DateFormat("EEEE, dd MMMM yyyy").format(DateTime.now()),
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: whiteText
@@ -134,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  userNip,
+                  "",
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: whiteText
@@ -150,7 +187,8 @@ class _HomePageState extends State<HomePage> {
                   image: AssetImage('images/home2.png'),
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(10),
+            ),
             width: widthScreen,
             height: widthScreen * 0.3,
             margin: EdgeInsets.symmetric(
@@ -160,7 +198,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Sabtu, 16 Maret 2024',
+                  DateFormat("EEEE, dd MMMM yyyy").format(DateTime.now()),
                   style: GoogleFonts.poppins(
                     fontSize: 12,
                     color: whiteText
@@ -184,8 +222,6 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          
-          TapIn(),
           StarInfo(),
         ]),
       ),

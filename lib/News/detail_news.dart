@@ -1,24 +1,19 @@
-import 'dart:convert';
-
 import 'package:absensi_mobile/data/data.dart';
+import 'package:absensi_mobile/entities/portal.dart';
 import 'package:absensi_mobile/methods/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class NewsScreen extends StatefulWidget {
+  final Portal portal;
   
-  const NewsScreen({super.key});
+  const NewsScreen({super.key, required this.portal});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();
 }
 class _NewsScreenState extends State<NewsScreen> {
-
-
-static const cover = null;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +32,8 @@ static const cover = null;
               width: widthScreen,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: cover != null
-                          ? NetworkImage('${ApiURL.apiUrl}/storage/$cover')
+                      image: widget.portal.image != null
+                          ? NetworkImage(widget.portal.image ?? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-RcH3_rFP8ZmSEgjhZy5pv4O4bLl-SwZGsA&s")
                           : const AssetImage('images/Starbhak-info.png')
                               as ImageProvider,
                       fit: BoxFit.cover)),
@@ -69,7 +64,9 @@ static const cover = null;
                 decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(12)),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     icon: const Icon(Icons.arrow_back_rounded, color: Colors.transparent,)),
               )
             ],
@@ -87,7 +84,7 @@ static const cover = null;
               child: ListView(
                       children: [
                         Text(
-                          'SMK Taruna Bhakti punya lift??',
+                          '${widget.portal.judul}',
                           style: GoogleFonts.mulish(
                               height: 1,
                               fontWeight: textExtra,
@@ -97,7 +94,7 @@ static const cover = null;
                           height: widthScreen * 0.04,
                         ),
                         Text(
-                          'Author: Dzulkifli Nakir',
+                          'Pokja: ${widget.portal.pokja}',
                           style: GoogleFonts.mulish(
                               fontWeight: textMedium,
                               fontSize: font12,
@@ -109,14 +106,7 @@ static const cover = null;
                         Row(
                           children: [
                             Text(
-                              'Pembangunan',
-                              style: GoogleFonts.mulish(
-                                  fontWeight: textBold,
-                                  fontSize: font12,
-                                  color: blackText),
-                            ),
-                            Text(
-                              '- 12 Maret 2024',
+                              '12 Maret 2024',
                               style: GoogleFonts.mulish(
                                   fontWeight: textMedium,
                                   fontSize: font12,
@@ -128,7 +118,7 @@ static const cover = null;
                           height: widthScreen * 0.06,
                         ),
                         HtmlWidget(
-                         'SMK Taruna Bhakti, yang terletak di pusat Kota, kini menjadi pusat perhatian dengan penambahan fasilitas baru yang tak lazim di kalangan sekolah menengah kejuruan: lift. Keputusan untuk memasang lift ini diambil sebagai bagian dari upaya sekolah untuk memperluas aksesibilitas bagi semua siswa, termasuk mereka yang memiliki mobilitas terbatas.\n\nDalam sebuah pernyataan, Kepala Sekolah SMK Taruna Bhakti, Bapak Ahmad Rizal, menyatakan, "Kami berkomitmen untuk menyediakan lingkungan belajar yang inklusif bagi semua siswa kami. Penambahan lift ini merupakan langkah penting dalam memastikan bahwa siswa kami yang mungkin memiliki keterbatasan fisik juga dapat dengan mudah mengakses semua fasilitas sekolah."\n\nLift baru ini tidak hanya memberikan manfaat bagi siswa dengan mobilitas terbatas, tetapi juga memungkinkan akses yang lebih mudah bagi staf pengajar dan petugas sekolah untuk mengangkut peralatan dan barang-barang penting antar lantai.\n\nMenurut Bapak Rizal, pembangunan lift ini merupakan bagian dari rencana pengembangan sekolah jangka panjang yang bertujuan untuk meningkatkan kualitas pendidikan dan kenyamanan bagi seluruh komunitas sekolah.\n\n"Walaupun merupakan investasi besar, manfaat jangka panjang dari pengadaan lift ini jauh lebih besar dari pada biayanya," tambah Bapak Rizal. "Kami yakin bahwa dengan memperluas aksesibilitas ini, kami dapat menciptakan lingkungan belajar yang lebih inklusif dan ramah bagi semua siswa dan staf kami."\n\nPemasangan lift ini juga disambut baik oleh orangtua siswa dan anggota komunitas sekolah lainnya. Mereka menyatakan apresiasi mereka atas langkah progresif yang diambil oleh sekolah dalam memperhatikan kebutuhan semua individu di dalam lingkungan pendidikan.\n\nDiharapkan, dengan adanya fasilitas ini, SMK Taruna Bhakti dapat menjadi contoh bagi sekolah lainnya dalam upaya meningkatkan aksesibilitas dan inklusi bagi semua individu, memastikan bahwa pendidikan berkualitas tinggi dapat diakses oleh semua orang, tanpa terkecuali.',
+                         '${widget.portal.content}',
                           textStyle: GoogleFonts.mulish(
                             height: 1.5,
                           ),

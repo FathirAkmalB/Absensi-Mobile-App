@@ -13,7 +13,6 @@ void main() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final Token = prefs.getString('token');
 
-    print('Token: $Token');  
     runApp(const MyApp());}
 
 class MyApp extends StatelessWidget {

@@ -26,11 +26,13 @@ class API {
       );
     }
 
-    return await http.post(
+    http.Response res = await http.post(
       Uri.parse(url),
       body: jsonEncode(data),
       headers: header,
     );
+
+    return res;
   }
 
   getRequest({
@@ -48,10 +50,12 @@ class API {
       );
     }
 
-    return await http.get(
+    http.Response res = await http.get(
       Uri.parse(url),
       headers: header,
     );
+
+    return res;
   }
 
   _header() =>

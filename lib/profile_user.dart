@@ -204,41 +204,7 @@ class _ProfileUserState extends State<ProfileUser> {
                 margin: EdgeInsets.symmetric(
                     horizontal: marginWidth, vertical: margin),
                 child: Column(children: [
-                  // Nomor Induk
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(nis != null ? 'Nomor Induk Siswa:' : 'Nomor Induk Pegawai',
-                                textAlign: TextAlign.left,
-                                style: GoogleFonts.lato(
-                                    fontWeight: textRegular, fontSize: 14))
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Container(
-                          width: widthScreen,
-                          alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: widthScreen * 0.04),
-                          height: 40,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: borderInput,
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                                MediaQuery.of(context).size.width * 0.022),
-                          ),
-                          child: Text(nis != null ? '$nis' : '$nip'),
-                        )
-                      ],
-                    ),
-                  ),
-                  // Nomor Induk End
+
 
                   SizedBox(height: 15),
                   // Nomor Induk
@@ -437,7 +403,7 @@ class _ProfileUserState extends State<ProfileUser> {
       headers: {'Authorization': 'Bearer $token'},
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 401) {
       // Hapus token autentikasi dari SharedPreferences
       preferences.remove('token');
 
@@ -448,8 +414,6 @@ class _ProfileUserState extends State<ProfileUser> {
         ),
       );
     } else {
-      print(response.request);
-      print('cek token: $token');
       // Tampilkan pesan kesalahan jika logout gagal
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Logout gagal')),
