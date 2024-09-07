@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
         SharedPreferences preferences = await SharedPreferences.getInstance();
 
         // General key(student & teacher)
-        final id = userData['id'];
+        // final id = userData['id'];
         final type = userData['type']==null?"":userData['type'];
         final username = userData['username'];
         print(username);
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
           final address = identity['address'] ?? '';
 
           //save key
-          await preferences.setInt('id', id);
+          // await preferences.setInt('id', id);
           await preferences.setString('username', username);
           await preferences.setString('type', type);
           await preferences.setString('token', token);
@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
           final placeOfBirth = identity['tempat_lahir'];
           final address = identity['address'] ?? '';
 
-          await preferences.setInt('id', id);
+          // await preferences.setInt('id', id);
           await preferences.setString('username', username);
           await preferences.setString('type', type);
           await preferences.setString('token', token);
